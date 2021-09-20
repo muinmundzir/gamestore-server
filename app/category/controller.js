@@ -1,4 +1,5 @@
 const Category = require('./model');
+
 module.exports = {
   index: async (req, res) => {
     try {
@@ -20,6 +21,25 @@ module.exports = {
       const { name } = req.body;
       let category = await Category({ name });
       await category.save();
+      res.redirect('/category');
+    } catch (error) {
+      console.log(error);
+    }
+  },
+  viewEdit: async (req, res) => {
+    try {
+      const { id } = req.params;
+      const category = await Category.findOne({ _id: id });
+      res.render('admin/category/edit', { category });
+    } catch (error) {
+      console.log(error);
+    }
+  },
+  actionEdit: async (req, res) => {
+    try {
+      const { id } = req.params;
+      const { name } = req.body;
+      const category = await Category.findOneAndUpdate({ _id: id }, { name });
       res.redirect('/category');
     } catch (error) {
       console.log(error);
