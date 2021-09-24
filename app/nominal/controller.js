@@ -76,13 +76,13 @@ module.exports = {
 
       await Nominal.findOneAndRemove({ _id: id });
 
-      req.flash('alertMessage', 'Category has been deleted');
+      req.flash('alertMessage', 'Nominal has been deleted');
       req.flash('alertStatus', 'success');
-      res.redirect('/category');
+      res.redirect('/nominal');
     } catch (error) {
       req.flash('alertMessage', `${error.message}`);
       req.flash('alertStatus', 'danger');
-      res.redirect('/category');
+      res.redirect('/nominal');
     }
   },
 };
