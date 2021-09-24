@@ -39,38 +39,42 @@ module.exports = {
       res.redirect('/nominal');
     }
   },
-  // viewEdit: async (req, res) => {
-  //   try {
-  //     const { id } = req.params;
-  //     const category = await Category.findOne({ _id: id });
-  //     res.render('admin/category/edit', { category });
-  //   } catch (error) {
-  //     req.flash('alertMessage', `${error.message}`);
-  //     req.flash('alertStatus', 'danger');
-  //     res.redirect('/category');
-  //   }
-  // },
-  // actionEdit: async (req, res) => {
-  //   try {
-  //     const { id } = req.params;
-  //     const { name } = req.body;
+  viewEdit: async (req, res) => {
+    try {
+      const { id } = req.params;
+      const nominal = await Nominal.findOne({ _id: id });
+      console.log(nominal);
+      res.render('admin/nominal/edit', { nominal });
+    } catch (error) {
+      req.flash('alertMessage', `${error.message}`);
+      req.flash('alertStatus', 'danger');
+      res.redirect('/nominal');
+    }
+  },
+  actionEdit: async (req, res) => {
+    try {
+      const { id } = req.params;
+      const { coinName, coinQuantity, price } = req.body;
 
-  //     await Category.findOneAndUpdate({ _id: id }, { name });
+      await Nominal.findOneAndUpdate(
+        { _id: id },
+        { coinName, coinQuantity, price }
+      );
 
-  //     req.flash('alertMessage', 'Category has been updated');
-  //     req.flash('alertStatus', 'success');
-  //     res.redirect('/category');
-  //   } catch (error) {
-  //     req.flash('alertMessage', `${error.message}`);
-  //     req.flash('alertStatus', 'danger');
-  //     res.redirect('/category');
-  //   }
-  // },
+      req.flash('alertMessage', 'Nominal has been updated');
+      req.flash('alertStatus', 'success');
+      res.redirect('/nominal');
+    } catch (error) {
+      req.flash('alertMessage', `${error.message}`);
+      req.flash('alertStatus', 'danger');
+      res.redirect('/nominal');
+    }
+  },
   // actionDelete: async (req, res) => {
   //   try {
   //     const { id } = req.params;
 
-  //     await Category.findOneAndRemove({ _id: id });
+  //     await Nominal.findOneAndRemove({ _id: id });
 
   //     req.flash('alertMessage', 'Category has been deleted');
   //     req.flash('alertStatus', 'success');
