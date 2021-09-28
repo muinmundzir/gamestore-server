@@ -39,37 +39,37 @@ module.exports = {
       res.redirect('/bank');
     }
   },
-  // viewEdit: async (req, res) => {
-  //   try {
-  //     const { id } = req.params;
-  //     const nominal = await Nominal.findOne({ _id: id });
-  //     console.log(nominal);
-  //     res.render('admin/nominal/edit', { nominal });
-  //   } catch (error) {
-  //     req.flash('alertMessage', `${error.message}`);
-  //     req.flash('alertStatus', 'danger');
-  //     res.redirect('/nominal');
-  //   }
-  // },
-  // actionEdit: async (req, res) => {
-  //   try {
-  //     const { id } = req.params;
-  //     const { coinName, coinQuantity, price } = req.body;
+  viewEdit: async (req, res) => {
+    try {
+      const { id } = req.params;
+      const bank = await Bank.findOne({ _id: id });
+      console.log(bank);
+      res.render('admin/bank/edit', { bank });
+    } catch (error) {
+      req.flash('alertMessage', `${error.message}`);
+      req.flash('alertStatus', 'danger');
+      res.redirect('/bank');
+    }
+  },
+  actionEdit: async (req, res) => {
+    try {
+      const { id } = req.params;
+      const { name, bankName, accountNumber } = req.body;
 
-  //     await Nominal.findOneAndUpdate(
-  //       { _id: id },
-  //       { coinName, coinQuantity, price }
-  //     );
+      await Bank.findOneAndUpdate(
+        { _id: id },
+        { name, bankName, accountNumber }
+      );
 
-  //     req.flash('alertMessage', 'Nominal has been updated');
-  //     req.flash('alertStatus', 'success');
-  //     res.redirect('/nominal');
-  //   } catch (error) {
-  //     req.flash('alertMessage', `${error.message}`);
-  //     req.flash('alertStatus', 'danger');
-  //     res.redirect('/nominal');
-  //   }
-  // },
+      req.flash('alertMessage', 'Bank has been updated');
+      req.flash('alertStatus', 'success');
+      res.redirect('/bank');
+    } catch (error) {
+      req.flash('alertMessage', `${error.message}`);
+      req.flash('alertStatus', 'danger');
+      res.redirect('/bank');
+    }
+  },
   // actionDelete: async (req, res) => {
   //   try {
   //     const { id } = req.params;
