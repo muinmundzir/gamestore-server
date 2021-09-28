@@ -41,37 +41,35 @@ module.exports = {
       res.redirect('/payment');
     }
   },
-  // viewEdit: async (req, res) => {
-  //   try {
-  //     const { id } = req.params;
-  //     const nominal = await Nominal.findOne({ _id: id });
-  //     console.log(nominal);
-  //     res.render('admin/nominal/edit', { nominal });
-  //   } catch (error) {
-  //     req.flash('alertMessage', `${error.message}`);
-  //     req.flash('alertStatus', 'danger');
-  //     res.redirect('/nominal');
-  //   }
-  // },
-  // actionEdit: async (req, res) => {
-  //   try {
-  //     const { id } = req.params;
-  //     const { coinName, coinQuantity, price } = req.body;
+  viewEdit: async (req, res) => {
+    try {
+      const { id } = req.params;
+      const banks = await Bank.find();
+      const payment = await Payment.findOne({ _id: id }).populate('banks');
+      console.log(payment);
+      res.render('admin/payment/edit', { payment, banks });
+    } catch (error) {
+      req.flash('alertMessage', `${error.message}`);
+      req.flash('alertStatus', 'danger');
+      res.redirect('/payment');
+    }
+  },
+  actionEdit: async (req, res) => {
+    try {
+      const { id } = req.params;
+      const { type, banks } = req.body;
 
-  //     await Nominal.findOneAndUpdate(
-  //       { _id: id },
-  //       { coinName, coinQuantity, price }
-  //     );
+      await Payment.findOneAndUpdate({ _id: id }, { type, banks });
 
-  //     req.flash('alertMessage', 'Nominal has been updated');
-  //     req.flash('alertStatus', 'success');
-  //     res.redirect('/nominal');
-  //   } catch (error) {
-  //     req.flash('alertMessage', `${error.message}`);
-  //     req.flash('alertStatus', 'danger');
-  //     res.redirect('/nominal');
-  //   }
-  // },
+      req.flash('alertMessage', 'Payment has been updated');
+      req.flash('alertStatus', 'success');
+      res.redirect('/payment');
+    } catch (error) {
+      req.flash('alertMessage', `${error.message}`);
+      req.flash('alertStatus', 'danger');
+      res.redirect('/payment');
+    }
+  },
   // actionDelete: async (req, res) => {
   //   try {
   //     const { id } = req.params;
