@@ -35,7 +35,7 @@
           <form action="payment/status/<%= payment[i]._id %>?_method=PUT" method="POST" style="display: inline-block;">
             <button class="btn btn-primary btn-sm">
               <i class="fas fa-folder"></i>
-              <% if(payment[i].status ==='Yes') { %> 
+              <% if(payment[i].status ==='No') { %> 
                   Activate
                 <% } else  {%> 
                   Deactivate

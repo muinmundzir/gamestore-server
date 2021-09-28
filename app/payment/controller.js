@@ -85,4 +85,21 @@ module.exports = {
       res.redirect('/payment');
     }
   },
+  actionStatus: async (req, res) => {
+    try {
+      const { id } = req.params;
+      let payment = await Payment.findOne({ _id: id });
+
+      let status = payment.status === 'Yes' ? 'No' : 'Yes';
+
+      payment = await Payment.findOneAndUpdate({ _id: id }, { status });
+      req.flash('alertMessage', 'Payment status has been updated');
+      req.flash('alertStatus', 'success');
+      res.redirect('/payment');
+    } catch (error) {
+      req.flash('alertMessage', `${error.message}`);
+      req.flash('alertStatus', 'danger');
+      res.redirect('/payment');
+    }
+  },
 };
