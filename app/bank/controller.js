@@ -70,19 +70,19 @@ module.exports = {
       res.redirect('/bank');
     }
   },
-  // actionDelete: async (req, res) => {
-  //   try {
-  //     const { id } = req.params;
+  actionDelete: async (req, res) => {
+    try {
+      const { id } = req.params;
 
-  //     await Nominal.findOneAndRemove({ _id: id });
+      await Bank.findOneAndRemove({ _id: id });
 
-  //     req.flash('alertMessage', 'Nominal has been deleted');
-  //     req.flash('alertStatus', 'success');
-  //     res.redirect('/nominal');
-  //   } catch (error) {
-  //     req.flash('alertMessage', `${error.message}`);
-  //     req.flash('alertStatus', 'danger');
-  //     res.redirect('/nominal');
-  //   }
-  // },
+      req.flash('alertMessage', 'Bank has been deleted');
+      req.flash('alertStatus', 'success');
+      res.redirect('/bank');
+    } catch (error) {
+      req.flash('alertMessage', `${error.message}`);
+      req.flash('alertStatus', 'danger');
+      res.redirect('/bank');
+    }
+  },
 };
