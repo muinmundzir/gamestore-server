@@ -11,8 +11,9 @@ const {
 } = require('./controller');
 const multer = require('multer');
 const os = require('os');
-
-/* GET category page. */
+const { isLoginAdmin } = require('../middleware/auth');
+/* GET home page. */
+router.use(isLoginAdmin);
 router.get('/', index);
 router.get('/create', viewCreate);
 router.post(
