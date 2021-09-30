@@ -82,6 +82,10 @@ let transactionSchema = mongoose.Schema(
         minlenght: [9, 'Name length must between 9 - 13 characters'],
       },
     },
+    category: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Category',
+    },
     user: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User',
