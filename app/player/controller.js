@@ -76,7 +76,7 @@ module.exports = {
           category: res_voucher._doc.category
             ? res_voucher._doc.category.name
             : '',
-          thumbnail: res_voucher._doc.thumbail,
+          thumbnail: res_voucher._doc.thumbnail,
           coinName: res_nominal._doc.coinName,
           coinQuantity: res_nominal._doc.coinQuantity,
           price: res_nominal._doc.price,
@@ -140,6 +140,20 @@ module.exports = {
       res
         .status(200)
         .json({ data: history, total: total.length ? total[0].value : 0 });
+    } catch (error) {
+      res
+        .status(500)
+        .json({ message: error.message || `Internal server error` });
+    }
+  },
+
+  historyDetail: async (req, res) => {
+    try {
+      const { id } = req.params;
+      const history = await Transaction.findOne({ _id: id });
+      if (!history)
+        return res.status(404).json({ message: 'History not found' });
+      res.status(200).json({ data: history });
     } catch (error) {
       res
         .status(500)
