@@ -40,7 +40,7 @@ let transactionSchema = mongoose.Schema(
         require: [true, 'Bank name must be filled'],
       },
       accountNumber: {
-        type: Number,
+        type: String,
         require: [true, 'Account number must be filled'],
       },
     },
@@ -74,12 +74,10 @@ let transactionSchema = mongoose.Schema(
       ref: 'Player',
     },
     historyUser: {
-      type: String,
-      require: [true, 'User name must be filled'],
+      name: { type: String, require: [true, 'User name must be filled'] },
       phoneNumber: {
-        required: [true, 'Name must be filled'],
-        maxlenght: [13, 'Name length must between 9 - 13 characters'],
-        minlenght: [9, 'Name length must between 9 - 13 characters'],
+        type: String,
+        required: true,
       },
     },
     category: {
