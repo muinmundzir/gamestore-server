@@ -35,7 +35,7 @@ module.exports = {
       if (!voucher) {
         return res.status(404).json({ message: 'Voucher not found' });
       }
-      res.status(200).json({ data: voucher, payment });
+      res.status(200).json({ data: voucher, payments });
     } catch (error) {
       res
         .status(500)
