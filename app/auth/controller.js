@@ -36,6 +36,7 @@ module.exports = {
               return res.status(422).json({
                 message: error.message,
                 fields: error.errors,
+                error: true
               });
             }
             next(error);
@@ -53,6 +54,7 @@ module.exports = {
         return res.status(422).json({
           message: error.message,
           fields: error.errors,
+          error: true
         });
       }
       next(error);
@@ -89,6 +91,7 @@ module.exports = {
         } else {
           res.status(403).json({
             message: `Email not registered`,
+            error: true
           });
         }
       })
