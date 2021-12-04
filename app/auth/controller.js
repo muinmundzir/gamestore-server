@@ -69,6 +69,7 @@ module.exports = {
           if (!checkPassword) {
             res.status(403).json({
               message: `Wrong password`,
+              error: true
             });
           }
           const token = jwt.sign(
